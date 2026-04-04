@@ -1,7 +1,7 @@
-function Footer() {
+function Footer(props) {
   return (
     <div className="copyright">
-      <p>Made with love by Myself</p>
+      <p>{props.copyrightText}</p>
     </div>
   );
 }
