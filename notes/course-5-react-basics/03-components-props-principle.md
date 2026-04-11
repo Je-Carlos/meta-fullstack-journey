@@ -32,8 +32,8 @@ Com `props`, você consegue:
 - construir árvores de componentes mais previsíveis
 
 Isso é uma base importante para entender depois:
-- [[introducao-aos-componentes-funcionais]]
-- [[visao-geral-do-react]]
+- [[02-introducao-aos-componentes-funcionais]]
+- [[01-visao-geral-do-react]]
 - `state`
 - eventos
 - levantamento de estado
@@ -250,8 +250,8 @@ Isso mostra por que `props` são úteis para componentes reutilizáveis.
 - Usar `props` sem entender qual componente realmente é o pai da relação.
 
 ## Conexões
-- [[introducao-aos-componentes-funcionais]]
-- [[visao-geral-do-react]]
+- [[02-introducao-aos-componentes-funcionais]]
+- [[01-visao-geral-do-react]]
 - [[JSX]]
 - [[component tree]]
 - [[state]]

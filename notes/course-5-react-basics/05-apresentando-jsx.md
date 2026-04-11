@@ -226,10 +226,10 @@ Aqui o JSX mostra bem a mistura de responsabilidades:
 - Concluir que qualquer código JavaScript pode ser escrito livremente em qualquer ponto do JSX, sem respeitar o fato de que ali entram expressões, não blocos arbitrários de marcação e lógica misturados sem estrutura.
 
 ## Conexões
-- [[visao-geral-do-react]]
-- [[introducao-aos-componentes-funcionais]]
-- [[components-props-principle]]
-- [[estrutura-padrao-react]]
+- [[01-visao-geral-do-react]]
+- [[02-introducao-aos-componentes-funcionais]]
+- [[03-components-props-principle]]
+- [[04-estrutura-padrao-react]]
 
 ## Ângulo de entrevista
 - O que é JSX e por que ele não é exatamente HTML?

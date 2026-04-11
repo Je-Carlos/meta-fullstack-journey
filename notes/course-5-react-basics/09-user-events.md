@@ -235,9 +235,9 @@ Esse caso mostra que um único elemento JSX pode responder a mais de um evento.
 - Criar handlers pouco claros quando uma versão mais explícita facilitaria manutenção e revisão.
 
 ## Conexões
-- [[tipos-de-eventos]]
-- [[apresentando-jsx]]
-- [[introducao-aos-componentes-funcionais]]
+- [[08-tipos-de-eventos]]
+- [[05-apresentando-jsx]]
+- [[02-introducao-aos-componentes-funcionais]]
 - `state`
 - renderização condicional
 - fluxo de dados em React

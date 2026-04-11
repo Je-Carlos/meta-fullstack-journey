@@ -199,10 +199,10 @@ Esse é o fluxo explicado na aula:
 - Mover tudo para inline style sem avaliar se CSS externo continua sendo a melhor opção.
 
 ## Conexões
-- [[apresentando-jsx]]
-- [[introducao-aos-componentes-funcionais]]
-- [[estrutura-padrao-react]]
-- [[visao-geral-do-react]]
+- [[05-apresentando-jsx]]
+- [[02-introducao-aos-componentes-funcionais]]
+- [[04-estrutura-padrao-react]]
+- [[01-visao-geral-do-react]]
 
 ## Ângulo de entrevista
 - Como o atributo `style` funciona no React?

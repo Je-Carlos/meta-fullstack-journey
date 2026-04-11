@@ -33,7 +33,7 @@ Em projetos reais, organização importa porque:
 - reduz acoplamento entre UI, assets e lógica
 - ajuda a escalar de um app pequeno para uma base maior
 
-Também é um assunto que se conecta diretamente com [[introducao-aos-componentes-funcionais]], composição de componentes e organização de features.
+Também é um assunto que se conecta diretamente com [[02-introducao-aos-componentes-funcionais]], composição de componentes e organização de features.
 
 ## Conceitos centrais
 
@@ -225,8 +225,8 @@ Essa estrutura melhora separação de responsabilidades:
 - Escrever `package-loc.json` em vez de `package-lock.json`.
 
 ## Conexões
-- [[visao-geral-do-react]]
-- [[introducao-aos-componentes-funcionais]]
+- [[01-visao-geral-do-react]]
+- [[02-introducao-aos-componentes-funcionais]]
 - [[component tree]]
 - [[renderização]]
 - [[JSX]]

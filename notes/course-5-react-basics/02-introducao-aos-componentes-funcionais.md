@@ -177,7 +177,7 @@ Nesse caso:
 - Confundir transpilação com renderização. Transpilar é converter JSX; renderizar é exibir a interface.
 
 ## Conexões
-- [[visao-geral-do-react]]
+- [[01-visao-geral-do-react]]
 - [[JSX]]
 - [[renderização]]
 - [[component tree]]

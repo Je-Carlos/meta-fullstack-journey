@@ -221,10 +221,10 @@ Esse exemplo junta várias leituras importantes:
 - Usar `forEach` para tentar renderizar lista em JSX, quando normalmente `map` é a escolha mais natural.
 
 ## Conexões
-- [[apresentando-jsx]]
-- [[introducao-aos-componentes-funcionais]]
-- [[components-props-principle]]
-- [[visao-geral-do-react]]
+- [[05-apresentando-jsx]]
+- [[02-introducao-aos-componentes-funcionais]]
+- [[03-components-props-principle]]
+- [[01-visao-geral-do-react]]
 
 ## Ângulo de entrevista
 - Quais são as formas mais comuns de definir um componente funcional no React?

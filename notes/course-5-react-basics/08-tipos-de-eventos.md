@@ -219,9 +219,9 @@ Isso mostra que eventos não se limitam a clique:
 - Supor que todo evento precisa alterar a interface. Às vezes ele só registra, valida ou envia dados.
 
 ## Conexões
-- [[apresentando-jsx]]
-- [[introducao-aos-componentes-funcionais]]
-- [[components-props-principle]]
+- [[05-apresentando-jsx]]
+- [[02-introducao-aos-componentes-funcionais]]
+- [[03-components-props-principle]]
 - `state`
 - formulários
 - atualização de interface
