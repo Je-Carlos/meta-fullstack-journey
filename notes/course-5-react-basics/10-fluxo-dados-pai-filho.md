@@ -10,7 +10,7 @@ tags:
   - react
   - study-notes
 created: 2026-04-11
-updated: 2026-04-11
+updated: 2026-04-14
 ---
 
 # Fluxo de dados entre pai e filho
@@ -20,6 +20,7 @@ No React, dados normalmente fluem do componente pai para o componente filho por 
 Esse modelo evita repetição de conteúdo e ajuda a manter uma única fonte de verdade.
 Quando vários pontos da interface dependem da mesma informação, o melhor lugar para armazená-la costuma ser o componente pai.
 Ao atualizar os dados no pai, todos os filhos que recebem essas `props` refletem a mudança automaticamente.
+Nesse contexto, `props` representam dados externos e somente leitura, enquanto `state` representa dados internos que o componente controla e pode atualizar.
 
 ## Por que isso importa
 Em interfaces reais, o mesmo dado pode aparecer em várias áreas da página:
@@ -40,6 +41,7 @@ Ao centralizar os dados no componente pai, a UI fica mais previsível e mais fá
 Isso se conecta diretamente com:
 - [[03-components-props-principle]]
 - [[02-introducao-aos-componentes-funcionais]]
+- [[09-user-events]]
 - `single source of truth`
 - `component tree`
 - `state`
@@ -224,6 +226,63 @@ Esse padrão prepara terreno para entender depois:
 - levantamento de estado
 - compartilhamento de dados entre componentes
 
+### 11. `props` e `state` têm papéis diferentes
+O transcript também separa os dados do React em dois grupos:
+
+- `props`: dados externos ao componente, recebidos do pai e tratados como somente leitura
+- `state`: dados internos ao componente, controlados pelo próprio componente e passíveis de mudança
+
+Uma forma boa de lembrar:
+- `props` pertencem a quem renderiza
+- `state` pertence a quem o mantém
+
+Isso importa porque um componente filho pode consumir `props`, mas não deve tentar mutá-las.
+Se o valor precisa mudar ao longo do tempo, essa mudança geralmente nasce em `state`.
+
+### 12. Stateless vs stateful
+Pensando de forma didática:
+
+- um componente `stateless` apenas recebe dados e renderiza
+- um componente `stateful` guarda dados próprios e controla atualizações
+
+Na prática moderna, até componentes funcionais podem ser `stateful` com hooks.
+Mas, no contexto da aula, a distinção serve para reforçar o fluxo:
+- o componente com `state` controla o dado
+- o filho recebe o resultado via `props`
+
+### 13. Exemplo da aula com data e hora
+O exemplo mostrado usa um componente pai com `state` contendo a data atual.
+Depois, esse valor é convertido em string e enviado ao componente filho como `message`.
+
+```jsx
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: new Date(),
+    };
+  }
+
+  render() {
+    return (
+      <Child
+        message={this.state.date.toLocaleTimeString()}
+      />
+    );
+  }
+}
+
+function Child(props) {
+  return <h1>{props.message}</h1>;
+}
+```
+
+O que esse exemplo mostra:
+- o `state` mora no pai
+- o valor flui para baixo como `props`
+- o filho só lê `props.message` e renderiza
+- a responsabilidade de controlar o dado continua no componente pai
+
 ## Mental model
 Pense no componente pai como o centro de distribuição de dados.
 
@@ -241,6 +300,10 @@ Outra forma de lembrar:
 - pai = origem
 - `props` = canal de entrega
 - filho = renderização
+
+Se quiser memorizar a diferença entre os dois tipos de dado:
+- `props` = pacote entregue ao componente
+- `state` = estoque interno do componente
 
 ## Exemplo completo
 
@@ -283,6 +346,8 @@ O que está acontecendo:
 - Colocar texto fixo no componente filho quando o mesmo valor será reutilizado em vários lugares.
 - Duplicar strings iguais em diferentes componentes.
 - Achar que `props` servem para o filho atualizar diretamente o pai.
+- Tentar modificar `props` dentro do componente filho.
+- Confundir `props` com `state` como se ambos fossem dados controlados pelo mesmo componente.
 - Não perceber qual componente deveria ser a fonte única de verdade.
 - Confundir hierarquia visual com hierarquia de dados sem analisar quem realmente fornece a informação.
 
@@ -290,12 +355,15 @@ O que está acontecendo:
 - [[03-components-props-principle]]
 - [[02-introducao-aos-componentes-funcionais]]
 - [[01-visao-geral-do-react]]
+- [[09-user-events]]
 - `component hierarchy`
 - `single source of truth`
 
 ## Ângulo de entrevista
 - O que significa dizer que o fluxo de dados em React é unidirecional?
 - Qual é a diferença entre componente pai e componente filho?
+- Qual é a diferença entre `props` e `state`?
+- Por que um componente filho não deve alterar suas próprias `props`?
 - Por que centralizar dados no componente pai ajuda na manutenção?
 - O que o princípio DRY tem a ver com `props`?
 - O que significa ter uma fonte única de verdade em uma árvore de componentes?
@@ -316,29 +384,39 @@ O que está acontecendo:
 - **Q:** O componente filho deve definir sozinho os dados compartilhados?
   **A:** Não. Em geral, ele deve recebê-los via `props`.
 
+- **Q:** Qual é a diferença essencial entre `props` e `state`?
+  **A:** `props` são dados externos e somente leitura; `state` são dados internos que o componente controla e pode atualizar.
+
+- **Q:** Um componente filho pode modificar suas `props`?
+  **A:** Não. Ele deve apenas lê-las e renderizá-las.
+
 ## Prática guiada
 - Crie um componente pai `Promo` e um filho `PromoHeading`.
 - Faça o filho renderizar texto fixo inicialmente.
 - Depois mova os textos para um objeto `data` no pai.
 - Passe `heading` e `callToAction` para o filho usando `props`.
 - Reutilize os mesmos dados em mais de um componente para testar a ideia de fonte única de verdade.
+- Monte um exemplo com um pai guardando `new Date()` em `state` e um filho exibindo esse valor via prop `message`.
 
 ## Excalidraw brief
 - Conceito central: `Fluxo de dados pai -> filho`
-- Nós principais: `Componente pai`, `Componente filho`, `props`, `data`, `single source of truth`, `DRY`
+- Nós principais: `Componente pai`, `Componente filho`, `props`, `state`, `data`, `single source of truth`, `DRY`
 - Relações:
   - `Componente pai -> envia -> props`
+  - `state -> mora em -> componente pai`
   - `props -> carregam -> dados`
   - `Componente filho -> recebe -> props`
+  - `Componente filho -> não altera -> props`
   - `Fonte única de verdade -> evita -> duplicação`
   - `Mudança no pai -> atualiza -> filhos`
 - Layout sugerido:
   - pai no topo
   - três filhos abaixo
   - setas descendo do pai para os filhos
-  - objeto `data` ao lado do pai como origem dos textos
+  - objeto `data` ou bloco `state` ao lado do pai como origem dos textos
 
 ## Resumo final
 O relacionamento entre pai e filho em React ajuda a organizar como a informação circula na interface.
 Quando um dado precisa ser compartilhado por vários componentes, a melhor estratégia costuma ser armazená-lo no pai e distribuí-lo com `props`.
+Ao mesmo tempo, é importante separar `props` de `state`: `props` são entradas externas e somente leitura; `state` é o dado interno que o componente controla.
 Isso torna o sistema mais consistente, reduz repetição e reforça a ideia central de fluxo unidirecional de dados no React.
