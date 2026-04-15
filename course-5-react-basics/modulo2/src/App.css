@@ -182,3 +182,59 @@
     border-right-color: var(--border);
   }
 }
+
+.concept-showcase {
+  display: grid;
+  gap: 16px;
+  max-width: 720px;
+  padding: 24px;
+  margin-bottom: 24px;
+  border-radius: 18px;
+  background: #f3f7ff;
+  border: 1px solid #c9d9ff;
+  color: #1f2937;
+}
+
+.concept-showcase h1,
+.concept-card h2 {
+  margin: 0;
+}
+
+.concept-showcase p,
+.concept-card p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.concept-card {
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid #dbe4ff;
+}
+
+.concept-card__tag {
+  width: fit-content;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.concept-card button {
+  width: fit-content;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: #1d4ed8;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.concept-card__details {
+  color: #1e3a8a;
+}
