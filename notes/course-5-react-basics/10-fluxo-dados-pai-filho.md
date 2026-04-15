@@ -10,7 +10,7 @@ tags:
   - react
   - study-notes
 created: 2026-04-11
-updated: 2026-04-14
+updated: 2026-04-15
 ---
 
 # Fluxo de dados entre pai e filho
@@ -239,37 +239,80 @@ Uma forma boa de lembrar:
 Isso importa porque um componente filho pode consumir `props`, mas não deve tentar mutá-las.
 Se o valor precisa mudar ao longo do tempo, essa mudança geralmente nasce em `state`.
 
-### 12. Stateless vs stateful
-Pensando de forma didática:
+### 12. Quando usar componentes `stateless` e `stateful`
+Pensando de forma prática:
 
-- um componente `stateless` apenas recebe dados e renderiza
-- um componente `stateful` guarda dados próprios e controla atualizações
+- um componente `stateless` não mantém estado próprio para funcionar
+- um componente `stateful` precisa manter estado interno para controlar comportamento ou dados
 
-Na prática moderna, até componentes funcionais podem ser `stateful` com hooks.
-Mas, no contexto da aula, a distinção serve para reforçar o fluxo:
-- o componente com `state` controla o dado
-- o filho recebe o resultado via `props`
+A regra geral ensinada na aula é simples e suficiente:
 
-### 13. Exemplo da aula com data e hora
-O exemplo mostrado usa um componente pai com `state` contendo a data atual.
-Depois, esse valor é convertido em string e enviado ao componente filho como `message`.
+- use componente sem estado quando ele só precisa receber dados e renderizar
+- use componente com estado quando ele precisa armazenar e atualizar dados por conta própria
+
+Na prática moderna, componentes funcionais podem ser `stateful` com hooks.
+Mesmo assim, a distinção continua útil porque ajuda a decidir responsabilidades dentro da árvore.
+
+### 13. Padrão comum: pai com estado, filhos sem estado
+Uma organização muito frequente em React é:
+
+- o componente pai mantém o `state`
+- os componentes filhos recebem os dados por `props`
+- os filhos renderizam a interface com base nesses valores
+
+Esse arranjo é valioso porque:
+
+- mantém uma fonte mais clara de verdade
+- reduz duplicação de estado
+- facilita sincronizar vários filhos com o mesmo dado
+- deixa mais explícito quem controla e quem apenas exibe
+
+No contexto da aula, isso reforça o fluxo unidirecional:
+
+```text
+Pai com state -> Filho via props
+```
+
+### 14. `props` são imutáveis dentro do filho
+Quando um filho recebe dados do pai, ele não deve alterar essas `props`.
+
+Isso importa porque:
+
+- `props` pertencem ao componente que as enviou
+- o filho não é o dono desses dados
+- tentar mutá-las quebra o modelo mental do React
+
+Em outras palavras:
+
+- o pai controla
+- o filho consome
+
+Se o valor precisa mudar, a mudança acontece no componente que mantém o `state`, não no componente que apenas recebe a `prop`.
+
+### 15. Nem toda `prop` vem de `state`
+Um detalhe importante da aula é que `props` não servem apenas para carregar valores vindos de `state`.
+
+Também podem ser passados:
+
+- strings
+- números
+- objetos
+- funções JavaScript
+
+Ou seja, `props` significam dados recebidos do pai, não necessariamente dados derivados de `state`.
+
+### 16. Exemplo da aula com `useState` no pai
+O padrão discutido pode ser representado assim:
 
 ```jsx
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      date: new Date(),
-    };
-  }
+import { useState } from "react";
 
-  render() {
-    return (
-      <Child
-        message={this.state.date.toLocaleTimeString()}
-      />
-    );
-  }
+function App() {
+  const [message] = useState(
+    new Date().toLocaleTimeString()
+  );
+
+  return <Child message={message} />;
 }
 
 function Child(props) {
@@ -278,10 +321,43 @@ function Child(props) {
 ```
 
 O que esse exemplo mostra:
+
 - o `state` mora no pai
 - o valor flui para baixo como `props`
 - o filho só lê `props.message` e renderiza
 - a responsabilidade de controlar o dado continua no componente pai
+
+### 17. Um filho sem estado ainda pode disparar mudanças
+Mesmo sem guardar `state`, um componente filho ainda pode participar de interações.
+
+Isso normalmente acontece quando o pai passa uma função por `props`, por exemplo:
+
+```jsx
+function App() {
+  const [count, setCount] = useState(0);
+
+  function increment() {
+    setCount(count + 1);
+  }
+
+  return <Button onClick={increment} label={count} />;
+}
+
+function Button(props) {
+  return (
+    <button onClick={props.onClick}>
+      {props.label}
+    </button>
+  );
+}
+```
+
+Nesse fluxo:
+
+- o filho não guarda o estado
+- o filho executa uma ação recebida por `props`
+- o pai atualiza o estado
+- a UI inteira reflete a mudança
 
 ## Mental model
 Pense no componente pai como o centro de distribuição de dados.
